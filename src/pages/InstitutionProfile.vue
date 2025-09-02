@@ -206,7 +206,7 @@
                           class="mr-2 mb-2"
                         >
                           <v-icon start size="16">mdi-check-decagram</v-icon>
-                          Verificada SolidarityApp
+                          Verificada CompartilhaMais
                         </v-chip>
                         <v-chip
                           color="info"

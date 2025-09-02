@@ -6,7 +6,7 @@
 
       <v-toolbar-title class="d-flex align-center">
         <v-icon class="mr-2">mdi-heart</v-icon>
-        SolidarityApp
+        CompartilhaMais
       </v-toolbar-title>
 
       <v-spacer />
@@ -43,7 +43,7 @@
 
     <!-- Footer (Opcional) -->
     <v-footer app color="grey lighten-4" height="48" class="d-none d-md-flex">
-      <span class="text-caption grey--text"> © 2024 SolidarityApp - Conectando corações </span>
+      <span class="text-caption grey--text"> © 2024 CompartilhaMais - Conectando corações </span>
     </v-footer>
   </v-app>
 </template>

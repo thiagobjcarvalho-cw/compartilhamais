@@ -10,7 +10,7 @@
         <div>
           <h1 class="text-h4 font-weight-bold">Configurações</h1>
           <p class="text-body-1 text-medium-emphasis mb-0">
-            Personalize sua experiência no SolidarityApp
+            Personalize sua experiência no CompartilhaMais
           </p>
         </div>
       </div>

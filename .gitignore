@@ -75,7 +75,7 @@ pids
 # Yarn Integrity file
 .yarn-integrity
 
-# SolidarityApp specific
+# CompartilhaMais specific
 # Google Maps API keys (security)
 google-maps-config.ts
 api-keys.json

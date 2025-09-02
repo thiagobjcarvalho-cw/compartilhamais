@@ -16,7 +16,7 @@ const router = createRouter({
       name: 'home',
       component: Home,
       meta: {
-        title: 'SolidarityApp - Conectando corações generosos',
+        title: 'CompartilhaMais - Conectando corações generosos',
       },
     },
     {
@@ -24,7 +24,7 @@ const router = createRouter({
       name: 'institution-profile',
       component: InstitutionProfile,
       meta: {
-        title: 'Perfil da Instituição - SolidarityApp',
+        title: 'Perfil da Instituição - CompartilhaMais',
       },
     },
     {
@@ -32,7 +32,7 @@ const router = createRouter({
       name: 'donor-profile',
       component: DonorProfile,
       meta: {
-        title: 'Meu Perfil - SolidarityApp',
+        title: 'Meu Perfil - CompartilhaMais',
       },
     },
     {
@@ -40,7 +40,7 @@ const router = createRouter({
       name: 'donations',
       component: DonationsPage,
       meta: {
-        title: 'Minhas Doações - SolidarityApp',
+        title: 'Minhas Doações - CompartilhaMais',
       },
     },
     {
@@ -48,7 +48,7 @@ const router = createRouter({
       name: 'favorites',
       component: FavoritesPage,
       meta: {
-        title: 'Instituições Favoritas - SolidarityApp',
+        title: 'Instituições Favoritas - CompartilhaMais',
       },
     },
     {
@@ -56,7 +56,7 @@ const router = createRouter({
       name: 'settings',
       component: SettingsPage,
       meta: {
-        title: 'Configurações - SolidarityApp',
+        title: 'Configurações - CompartilhaMais',
       },
     },
     // Redirect legacy routes
@@ -75,7 +75,7 @@ const router = createRouter({
 
 // Update page title on route change
 router.beforeEach((to) => {
-  document.title = (to.meta.title as string) || 'SolidarityApp'
+  document.title = (to.meta.title as string) || 'CompartilhaMais'
 })
 
 export default router

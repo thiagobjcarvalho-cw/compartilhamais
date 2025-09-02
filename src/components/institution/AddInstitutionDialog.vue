@@ -27,7 +27,7 @@
               <div class="font-weight-medium mb-1">Para cadastrar sua instituição:</div>
               <div class="text-body-2">
                 Entre em contato conosco através do email:
-                <span class="font-weight-medium">cadastro@solidarityapp.org</span>
+                <span class="font-weight-medium">cadastro@compartilhamais.org</span>
               </div>
             </div>
           </div>

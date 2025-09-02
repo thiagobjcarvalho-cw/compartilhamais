@@ -1,4 +1,4 @@
-# SolidarityApp ❤️ 
+# CompartilhaMais ❤️ 
 > Conectando corações generosos às instituições que precisam.<br>
 > Every line is an act of love!<br>
 > Let's make the world a better place?<br>
@@ -8,7 +8,7 @@
 ## 🇧🇷 Português
 
 ### 📱 Sobre o Projeto
-SolidarityApp é uma plataforma gratuita que conecta doadores a instituições necessitadas através de geolocalização e interface intuitiva, funcionando como "iFood da Solidariedade".
+CompartilhaMais é uma plataforma gratuita que conecta doadores a instituições necessitadas através de geolocalização e interface intuitiva, funcionando como "iFood da Solidariedade".
 
 ### ✨ Features Principais
 - 🗺️ **Mapa interativo** com instituições próximas
@@ -28,7 +28,7 @@ SolidarityApp é uma plataforma gratuita que conecta doadores a instituições n
 
 #### Clone do repositório
 ```bash
-git clone https://github.com/seu-usuario/solidarity-app.git
+git clone https://github.com/seu-usuario/compartilhamais.git
 ```
 #### Instalar dependências
 ```bash
@@ -51,7 +51,7 @@ npm run dev
 ## 🇺🇸 English
 
 ### 📱 About
-SolidarityApp is a free platform connecting donors to institutions in need through geolocation and intuitive interface, working as "iFood for Solidarity".
+CompartilhaMais is a free platform connecting donors to institutions in need through geolocation and intuitive interface, working as "iFood for Sharing".
 
 ### ✨ Key Features  
 - 🗺️ **Interactive map** with nearby institutions
@@ -64,7 +64,7 @@ SolidarityApp is a free platform connecting donors to institutions in need throu
 ### 🚀 Quick Start
 #### Clone do repositório
 ```bash
-git clone https://github.com/seu-usuario/solidarity-app.git
+git clone https://github.com/seu-usuario/compartilhamais.git
 ```
 #### Instalar dependências
 ```bash
