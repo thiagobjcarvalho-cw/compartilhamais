@@ -6,8 +6,9 @@ export enum InstitutionType {
   EDUCATION = 'education',
   HEALTH = 'health',
   ELDERLY = 'elderly',
-  ANIMALS = 'animals',
+  ANIMAL = 'animal',
   ENVIRONMENT = 'environment',
+  FOOD = 'food',
 }
 
 export enum NeedCategory {
@@ -19,6 +20,7 @@ export enum NeedCategory {
   SHELTER = 'shelter',
   ELECTRONICS = 'electronics',
   VOLUNTEERS = 'volunteers',
+  OTHER = 'other',
 }
 
 export enum UrgencyLevel {
