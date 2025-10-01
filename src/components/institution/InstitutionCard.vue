@@ -219,33 +219,35 @@ const institutionImage = computed(() => {
     return props.institution.images[0]
   }
   // Imagem placeholder baseada no tipo
-  const placeholderMap: Record<InstitutionType, string> = {
-    [InstitutionType.SHELTER]: '/images/placeholder-shelter.jpg',
-    [InstitutionType.EDUCATION]: '/images/placeholder-education.jpg',
-    [InstitutionType.HEALTH]: '/images/placeholder-health.jpg',
-    [InstitutionType.ELDERLY]: '/images/placeholder-elderly.jpg',
-    [InstitutionType.ANIMALS]: '/images/placeholder-animals.jpg',
-    [InstitutionType.ENVIRONMENT]: '/images/placeholder-environment.jpg',
+  const placeholderMap: Record<string, string> = {
+    [InstitutionType.SHELTER]: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=800&q=80',
+    [InstitutionType.EDUCATION]: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80',
+    [InstitutionType.HEALTH]: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80',
+    [InstitutionType.ELDERLY]: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=800&q=80',
+    [InstitutionType.ANIMAL]: 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&q=80',
+    [InstitutionType.ENVIRONMENT]: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
+    [InstitutionType.FOOD]: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&q=80',
   }
 
-  return placeholderMap[props.institution.type] || '/images/placeholder-institution.jpg'
+  return placeholderMap[props.institution.type] || 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80'
 })
 
 const typeIcon = computed(() => {
-  const typeMap: Record<InstitutionType, { icon: string; color: string }> = {
+  const typeMap: Record<string, { icon: string; color: string }> = {
     [InstitutionType.SHELTER]: { icon: 'mdi-home-heart', color: 'blue' },
     [InstitutionType.EDUCATION]: { icon: 'mdi-school', color: 'green' },
     [InstitutionType.HEALTH]: { icon: 'mdi-hospital-box', color: 'red' },
     [InstitutionType.ELDERLY]: { icon: 'mdi-account-supervisor', color: 'purple' },
-    [InstitutionType.ANIMALS]: { icon: 'mdi-paw', color: 'orange' },
+    [InstitutionType.ANIMAL]: { icon: 'mdi-paw', color: 'orange' },
     [InstitutionType.ENVIRONMENT]: { icon: 'mdi-leaf', color: 'teal' },
+    [InstitutionType.FOOD]: { icon: 'mdi-food-apple', color: 'amber' },
   }
   return typeMap[props.institution.type] || { icon: 'mdi-help-circle', color: 'grey' }
 })
 
 // Methods - Mapeamentos completos e type-safe
 const getCategoryColor = (category: NeedCategory): string => {
-  const colorMap: Record<NeedCategory, string> = {
+  const colorMap: Record<string, string> = {
     [NeedCategory.FOOD]: 'red',
     [NeedCategory.CLOTHES]: 'blue',
     [NeedCategory.HYGIENE]: 'cyan',
@@ -254,12 +256,13 @@ const getCategoryColor = (category: NeedCategory): string => {
     [NeedCategory.SHELTER]: 'purple',
     [NeedCategory.ELECTRONICS]: 'indigo',
     [NeedCategory.VOLUNTEERS]: 'teal',
+    [NeedCategory.OTHER]: 'grey',
   }
   return colorMap[category] || 'grey'
 }
 
 const getCategoryIcon = (category: NeedCategory): string => {
-  const iconMap: Record<NeedCategory, string> = {
+  const iconMap: Record<string, string> = {
     [NeedCategory.FOOD]: 'mdi-food',
     [NeedCategory.CLOTHES]: 'mdi-tshirt-crew',
     [NeedCategory.HYGIENE]: 'mdi-shower',
@@ -268,12 +271,13 @@ const getCategoryIcon = (category: NeedCategory): string => {
     [NeedCategory.SHELTER]: 'mdi-home',
     [NeedCategory.ELECTRONICS]: 'mdi-laptop',
     [NeedCategory.VOLUNTEERS]: 'mdi-account-group',
+    [NeedCategory.OTHER]: 'mdi-gift',
   }
   return iconMap[category] || 'mdi-help-circle'
 }
 
 const getCategoryLabel = (category: NeedCategory): string => {
-  const labelMap: Record<NeedCategory, string> = {
+  const labelMap: Record<string, string> = {
     [NeedCategory.FOOD]: 'Alimentos',
     [NeedCategory.CLOTHES]: 'Roupas',
     [NeedCategory.HYGIENE]: 'Higiene',
@@ -282,12 +286,13 @@ const getCategoryLabel = (category: NeedCategory): string => {
     [NeedCategory.SHELTER]: 'Abrigo',
     [NeedCategory.ELECTRONICS]: 'Eletrônicos',
     [NeedCategory.VOLUNTEERS]: 'Voluntários',
+    [NeedCategory.OTHER]: 'Outros',
   }
   return labelMap[category] || 'Outro'
 }
 
 const getUrgencyColor = (urgency: UrgencyLevel): string => {
-  const urgencyMap: Record<UrgencyLevel, string> = {
+  const urgencyMap: Record<string, string> = {
     [UrgencyLevel.LOW]: 'success',
     [UrgencyLevel.MEDIUM]: 'warning',
     [UrgencyLevel.HIGH]: 'orange',

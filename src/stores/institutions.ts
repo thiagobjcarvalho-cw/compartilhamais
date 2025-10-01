@@ -285,6 +285,20 @@ export const useInstitutionsStore = defineStore('institutions', () => {
     userLocation.value = null
   }
 
+  // Método de compatibilidade para filtrar instituições
+  const getFilteredInstitutions = (customFilters?: Partial<InstitutionFilters>): Institution[] => {
+    if (customFilters) {
+      const mergedFilters = { ...filters.value, ...customFilters }
+      return filterInstitutions(mergedFilters)
+    }
+    return filteredInstitutions.value
+  }
+
+  // Método para carregar instituições
+  const loadInstitutions = async (): Promise<void> => {
+    await fetchInstitutions()
+  }
+
   return {
     // State
     institutions,
@@ -315,6 +329,8 @@ export const useInstitutionsStore = defineStore('institutions', () => {
     getInstitutionsByType,
     getInstitutionsByCategory,
     toggleInstitutionFavorite,
+    getFilteredInstitutions,
+    loadInstitutions,
     init,
     reset,
   }
