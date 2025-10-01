@@ -51,7 +51,7 @@ npm run dev
 ## 🇺🇸 English
 
 ### 📱 About
-CompartilhaMais is a free platform connecting donors to institutions in need through geolocation and intuitive interface, working as "iFood for CompartilhaMais".
+CompartilhaMais is a free platform connecting donors to institutions in need through geolocation and intuitive interface, working as "iFood for Sharing".
 
 ### ✨ Key Features  
 - 🗺️ **Interactive map** with nearby institutions
@@ -64,7 +64,8 @@ CompartilhaMais is a free platform connecting donors to institutions in need thr
 ### 🚀 Quick Start
 #### Clone do repositório
 ```bash
-git clone https://github.com/seu-usuario/compartilhamais-app.git
+git clone https://github.com/seu-usuario/compartilhamais.git
+
 ```
 #### Instalar dependências
 ```bash
