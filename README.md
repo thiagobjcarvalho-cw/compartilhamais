@@ -65,6 +65,7 @@ CompartilhaMais is a free platform connecting donors to institutions in need thr
 #### Clone do repositório
 ```bash
 git clone https://github.com/seu-usuario/compartilhamais.git
+
 ```
 #### Instalar dependências
 ```bash
