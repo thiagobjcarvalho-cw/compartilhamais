@@ -247,23 +247,27 @@
       </v-list>
     </v-card>
 
-    <!-- Snackbar -->
-    <v-snackbar v-model="showSnackbar" :color="snackbarColor" :timeout="3000">
-      {{ snackbarMessage }}
-      <template #actions>
-        <v-btn variant="text" @click="showSnackbar = false">Fechar</v-btn>
-      </template>
-    </v-snackbar>
+    <!-- Donation Dialog -->
+    <DonationDialog
+      v-model="donationDialog"
+      :institution="selectedInstitution"
+      @donation-completed="handleDonationCompleted"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useDonorStore } from '@/stores/donor'
+import { useRouter } from 'vue-router'
+import { useFavoritesStore } from '@/stores/favorites'
+import { useUiStore } from '@/stores/ui'
+import DonationDialog from '@/components/institution/DonationDialog.vue'
 import type { Institution, InstitutionType } from '@/types/interfaces'
-import { mockInstitutions, institutionTypeOptions } from '@/mock/data'
+import { institutionTypeOptions } from '@/mock/data'
 
-const donorStore = useDonorStore()
+const router = useRouter()
+const favoritesStore = useFavoritesStore()
+const uiStore = useUiStore()
 
 // Tipos específicos
 type ViewMode = 'grid' | 'list'
@@ -274,19 +278,13 @@ const search = ref<string>('')
 const filterType = ref<InstitutionType | ''>('')
 const viewMode = ref<ViewMode>('grid')
 
-// Snackbar
-const showSnackbar = ref<boolean>(false)
-const snackbarMessage = ref<string>('')
-const snackbarColor = ref<string>('info')
+// Dialog state
+const donationDialog = ref<boolean>(false)
+const selectedInstitution = ref<Institution | null>(null)
 
-// Estado das favoritas - simulando persistência local
-const favoriteInstitutionIds = ref<string[]>(['1', '2']) // Mock inicial
-
-// Computed - filtrando instituições mock por IDs favoritos
+// Computed - usando store de favoritos
 const favoriteInstitutions = computed<Institution[]>(() => {
-  return mockInstitutions.filter((institution) =>
-    favoriteInstitutionIds.value.includes(institution.id),
-  )
+  return favoritesStore.favoriteInstitutions
 })
 
 const filteredFavorites = computed<Institution[]>(() => {
@@ -322,47 +320,38 @@ const getTypeLabel = (type: InstitutionType): string => {
 
 // Métodos com tipagem forte e prevenção de erros
 const viewInstitution = (institution: Institution): void => {
-  // Navegação usando rota já configurada
-  window.open(`/institution/${institution.id}`, '_blank')
+  router.push(`/institution/${institution.id}`)
 }
 
 const toggleFavorite = (institutionId: string): void => {
-  const index = favoriteInstitutionIds.value.indexOf(institutionId)
-  const institution = mockInstitutions.find((inst) => inst.id === institutionId)
+  const result = favoritesStore.toggleFavorite(institutionId)
 
-  if (index > -1) {
-    favoriteInstitutionIds.value.splice(index, 1)
-    showMessage(`${institution?.name || 'Instituição'} removida dos favoritos`, 'warning')
+  if (result.added) {
+    uiStore.showSuccess(`${result.institutionName} adicionada aos favoritos`)
   } else {
-    favoriteInstitutionIds.value.push(institutionId)
-    showMessage(`${institution?.name || 'Instituição'} adicionada aos favoritos`, 'success')
+    uiStore.showWarning(`${result.institutionName} removida dos favoritos`)
   }
-
-  // TODO: Implementar persistência real (localStorage/API)
 }
 
 const openDonationDialog = (institution: Institution): void => {
-  // Navegar para home com instituição selecionada
-  showMessage(`Redirecionando para doação: ${institution.name}`, 'info')
-  // TODO: Implementar abertura do DonationDialog ou navegação específica
+  selectedInstitution.value = institution
+  donationDialog.value = true
 }
 
-const showMessage = (message: string, color: string = 'info'): void => {
-  snackbarMessage.value = message
-  snackbarColor.value = color
-  showSnackbar.value = true
+const handleDonationCompleted = (donationData: unknown): void => {
+  donationDialog.value = false
+  uiStore.showSuccess('Doação registrada com sucesso! A instituição entrará em contato.')
+  console.log('Donation completed:', donationData)
 }
 
 // Lifecycle
 onMounted(async (): Promise<void> => {
-  await donorStore.init()
-
-  // Simular carregamento de favoritas
+  // Simular carregamento
   setTimeout(() => {
     loading.value = false
 
     if (favoriteInstitutions.value.length > 0) {
-      showMessage(`${favoriteInstitutions.value.length} favoritas carregadas`, 'success')
+      uiStore.showInfo(`${favoriteInstitutions.value.length} instituições favoritas carregadas`)
     }
   }, 500)
 })

@@ -348,6 +348,13 @@ import {
 const institutionsStore = useInstitutionsStore()
 const router = useRouter()
 
+// Import additional stores
+import { useFavoritesStore } from '@/stores/favorites'
+import { useUiStore } from '@/stores/ui'
+
+const favoritesStore = useFavoritesStore()
+const uiStore = useUiStore()
+
 // Refs
 const viewMode = ref<'cards' | 'map'>('cards')
 const showAdvancedFilters = ref(false)
@@ -413,13 +420,19 @@ const openDonationDialog = (institution: Institution, need?: Need) => {
 }
 
 const toggleFavorite = (institution: Institution) => {
-  // Toggle favorite logic
-  console.log('Toggle favorite:', institution.name)
+  const result = favoritesStore.toggleFavorite(institution.id)
+
+  if (result.added) {
+    uiStore.showSuccess(`${result.institutionName} adicionada aos favoritos`)
+  } else {
+    uiStore.showWarning(`${result.institutionName} removida dos favoritos`)
+  }
 }
 
-const handleDonationConfirm = (donationData: any) => {
+const handleDonationConfirm = (donationData: unknown) => {
   console.log('Donation confirmed:', donationData)
   donationDialog.value = false
+  uiStore.showSuccess('Doação registrada com sucesso! A instituição entrará em contato em breve.')
 }
 
 // Lifecycle

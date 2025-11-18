@@ -423,11 +423,19 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, type Ref } from 'vue'
-import { useDonorStore } from '@/stores/donor'
+import { useRouter } from 'vue-router'
+import { useSettingsStore } from '@/stores/settings'
+import { useUiStore } from '@/stores/ui'
+import { useFavoritesStore } from '@/stores/favorites'
+import { useAuthStore } from '@/stores/auth'
 import type { NeedCategory, NotificationPreferences } from '@/types/interfaces'
 import { needCategoryOptions } from '@/mock/data'
 
-const donorStore = useDonorStore()
+const router = useRouter()
+const settingsStore = useSettingsStore()
+const uiStore = useUiStore()
+const favoritesStore = useFavoritesStore()
+const authStore = useAuthStore()
 
 // Tipos específicos para formulários
 interface ProfileForm {
@@ -514,19 +522,19 @@ const validationRules = {
 // Métodos de persistência com error handling robusto
 const saveProfile = async (): Promise<void> => {
   if (!profileFormValid.value) {
-    showMessage('Preencha todos os campos obrigatórios', 'error')
+    uiStore.showError('Preencha todos os campos obrigatórios')
     return
   }
 
   loadingStates.profile = true
 
   try {
-    await simulateApiCall(1000)
-    donorStore.updateProfile(profileForm)
-    showMessage('Perfil atualizado com sucesso!', 'success')
+    await simulateApiCall(500)
+    settingsStore.updateProfile(profileForm)
+    uiStore.showSuccess('Perfil atualizado com sucesso!')
   } catch (error) {
     console.error('Erro ao salvar perfil:', error)
-    showMessage('Erro ao salvar perfil. Tente novamente.', 'error')
+    uiStore.showError('Erro ao salvar perfil. Tente novamente.')
   } finally {
     loadingStates.profile = false
   }
@@ -536,15 +544,15 @@ const savePreferences = async (): Promise<void> => {
   loadingStates.preferences = true
 
   try {
-    await simulateApiCall(800)
-    donorStore.updatePreferences({
+    await simulateApiCall(500)
+    settingsStore.updatePreferences({
       categories: preferencesForm.categories,
       maxDistance: preferencesForm.maxDistance,
     })
-    showMessage('Preferências salvas com sucesso!', 'success')
+    uiStore.showSuccess('Preferências salvas com sucesso!')
   } catch (error) {
     console.error('Erro ao salvar preferências:', error)
-    showMessage('Erro ao salvar preferências. Tente novamente.', 'error')
+    uiStore.showError('Erro ao salvar preferências. Tente novamente.')
   } finally {
     loadingStates.preferences = false
   }
@@ -554,14 +562,12 @@ const saveNotifications = async (): Promise<void> => {
   loadingStates.notifications = true
 
   try {
-    await simulateApiCall(600)
-    donorStore.updatePreferences({
-      notifications: notificationsForm,
-    })
-    showMessage('Configurações de notificação salvas!', 'success')
+    await simulateApiCall(500)
+    settingsStore.updateNotifications(notificationsForm)
+    uiStore.showSuccess('Configurações de notificação salvas!')
   } catch (error) {
     console.error('Erro ao salvar notificações:', error)
-    showMessage('Erro ao salvar configurações. Tente novamente.', 'error')
+    uiStore.showError('Erro ao salvar configurações. Tente novamente.')
   } finally {
     loadingStates.notifications = false
   }
@@ -572,12 +578,31 @@ const exportUserData = async (): Promise<void> => {
   loadingStates.export = true
 
   try {
-    await simulateApiCall(2000)
-    showMessage('Dados exportados com sucesso! Verifique sua pasta de downloads.', 'success')
-    // TODO: Implementar exportação real
+    await simulateApiCall(1000)
+
+    // Exportar dados reais
+    const exportData = {
+      settings: settingsStore.settings,
+      favorites: favoritesStore.favoriteIds,
+      exportDate: new Date().toISOString(),
+      appVersion: '1.0.0',
+    }
+
+    const jsonString = JSON.stringify(exportData, null, 2)
+    const blob = new Blob([jsonString], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.setAttribute('href', url)
+    link.setAttribute('download', `compartilhamais_dados_${new Date().toISOString().split('T')[0]}.json`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+
+    uiStore.showSuccess('Dados exportados com sucesso!')
   } catch (error) {
     console.error('Erro ao exportar dados:', error)
-    showMessage('Erro ao exportar dados.', 'error')
+    uiStore.showError('Erro ao exportar dados.')
   } finally {
     loadingStates.export = false
   }
@@ -587,31 +612,31 @@ const clearCache = async (): Promise<void> => {
   loadingStates.cache = true
 
   try {
-    await simulateApiCall(1500)
-    showMessage('Cache limpo com sucesso!', 'success')
-    // TODO: Implementar limpeza real de cache
+    await simulateApiCall(500)
+    settingsStore.clearCache()
+    uiStore.showSuccess('Cache limpo com sucesso!')
   } catch (error) {
     console.error('Erro ao limpar cache:', error)
-    showMessage('Erro ao limpar cache.', 'error')
+    uiStore.showError('Erro ao limpar cache.')
   } finally {
     loadingStates.cache = false
   }
 }
 
 const contactSupport = (): void => {
-  showMessage('Redirecionando para suporte...', 'info')
-  // TODO: Implementar redirecionamento para suporte
+  window.open('mailto:suporte@compartilhamais.com.br?subject=Suporte%20Técnico', '_blank')
+  uiStore.showInfo('Abrindo cliente de e-mail...')
 }
 
 const checkForUpdates = async (): Promise<void> => {
   loadingStates.update = true
 
   try {
-    await simulateApiCall(3000)
-    showMessage('Seu aplicativo está atualizado!', 'success')
+    await simulateApiCall(2000)
+    uiStore.showSuccess('Seu aplicativo está atualizado!')
   } catch (error) {
     console.error('Erro ao verificar atualizações:', error)
-    showMessage('Erro ao verificar atualizações.', 'error')
+    uiStore.showError('Erro ao verificar atualizações.')
   } finally {
     loadingStates.update = false
   }
@@ -633,14 +658,22 @@ const executeDeleteAccount = async (): Promise<void> => {
 
   try {
     await simulateApiCall(2000)
-    showMessage('Conta excluída com sucesso. Redirecionando...', 'info')
-    // TODO: Implementar exclusão real e logout
+
+    // Limpar todos os dados
+    settingsStore.resetSettings()
+    favoritesStore.clearAllFavorites()
+
+    // Fazer logout
+    await authStore.logout()
+
+    uiStore.showInfo('Conta excluída com sucesso. Redirecionando...')
+
     setTimeout(() => {
-      window.location.href = '/login'
-    }, 2000)
+      router.push('/login')
+    }, 1500)
   } catch (error) {
     console.error('Erro ao excluir conta:', error)
-    showMessage('Erro ao excluir conta. Tente novamente.', 'error')
+    uiStore.showError('Erro ao excluir conta. Tente novamente.')
   } finally {
     loadingStates.delete = false
     showDeleteDialog.value = false
@@ -659,41 +692,27 @@ const showMessage = (message: string, color: string = 'info'): void => {
 }
 
 const loadUserData = (): void => {
-  const donor = donorStore.currentDonor
+  // Carregar do store de configurações
+  const settings = settingsStore.settings
 
-  if (donor) {
-    // Carregar dados do perfil
-    Object.assign(profileForm, {
-      name: donor.name || '',
-      email: donor.email || '',
-      phone: donor.phone || '',
-      city: donor.location?.city || '',
-    })
+  // Carregar dados do perfil
+  Object.assign(profileForm, settings.profile)
 
-    // Carregar preferências
-    if (donor.preferences) {
-      Object.assign(preferencesForm, {
-        categories: donor.preferences.categories || [],
-        maxDistance: donor.preferences.maxDistance || 10,
-      })
+  // Carregar preferências
+  Object.assign(preferencesForm, settings.preferences)
 
-      // Carregar configurações de notificação
-      if (donor.preferences.notifications) {
-        Object.assign(notificationsForm, donor.preferences.notifications)
-      }
-    }
-  }
+  // Carregar configurações de notificação
+  Object.assign(notificationsForm, settings.notifications)
 }
 
 // Lifecycle - carregamento inicial
 onMounted(async (): Promise<void> => {
   try {
-    await donorStore.init()
+    settingsStore.init()
     loadUserData()
-    showMessage('Configurações carregadas', 'success')
   } catch (error) {
     console.error('Erro ao carregar configurações:', error)
-    showMessage('Erro ao carregar configurações', 'error')
+    uiStore.showError('Erro ao carregar configurações')
   }
 })
 </script>
