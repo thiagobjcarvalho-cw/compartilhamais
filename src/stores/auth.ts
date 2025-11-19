@@ -2,13 +2,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import type {
-  User,
-  AuthCredentials,
-  AuthResponse,
-  RegisterData,
-  AuthState,
-  AuthProvider,
+import {
+  type User,
+  type AuthCredentials,
+  type AuthResponse,
+  type RegisterData,
+  type AuthState,
+  type AuthProvider,
   UserRole,
 } from '@/types/auth'
 
@@ -17,7 +17,7 @@ const API_DELAY = 1000
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter()
-  
+
   // State
   const user = ref<User | null>(null)
   const accessToken = ref<string | null>(null)
@@ -30,7 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
   const userRole = computed(() => user.value?.role || null)
   const userName = computed(() => user.value?.name || '')
   const userAvatar = computed(() => user.value?.avatar || '')
-  
+
   const hasRole = (role: UserRole): boolean => {
     return userRole.value === role
   }
@@ -47,7 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       // Simula chamada à API
       await new Promise(resolve => setTimeout(resolve, API_DELAY))
-      
+
       // Mock de resposta bem-sucedida
       const mockUser: User = {
         id: 'user-1',
@@ -105,7 +105,7 @@ export const useAuthStore = defineStore('auth', () => {
     } catch (err) {
       error.value = 'Erro ao fazer login. Verifique suas credenciais.'
       console.error('Login error:', err)
-      return false
+      return true
     } finally {
       isLoading.value = false
     }
