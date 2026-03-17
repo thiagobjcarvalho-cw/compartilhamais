@@ -344,16 +344,16 @@ import {
   urgencyLevelOptions,
 } from '@/mock/data'
 
-// Stores
-const institutionsStore = useInstitutionsStore()
-const router = useRouter()
-
-// Import additional stores
 import { useFavoritesStore } from '@/stores/favorites'
 import { useUiStore } from '@/stores/ui'
 
-const favoritesStore = useFavoritesStore()
-const uiStore = useUiStore()
+ // Stores
+ const institutionsStore = useInstitutionsStore()
+ const router = useRouter()
+
+ // Additional stores
+ const favoritesStore = useFavoritesStore()
+ const uiStore = useUiStore()
 
 // Refs
 const viewMode = ref<'cards' | 'map'>('cards')
