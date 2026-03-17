@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Instala dependências apenas pela primeira build (cache aproveitada)
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --silent || npm install --silent
 
 COPY . .
 EXPOSE 3000

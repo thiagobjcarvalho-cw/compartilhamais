@@ -118,9 +118,29 @@ export const useInstitutionsStore = defineStore('institutions', () => {
     error.value = null
 
     try {
-      // Simula API call com delay realista
-      await new Promise((resolve) => setTimeout(resolve, 500))
-      institutions.value = mockInstitutions
+      // Tenta buscar de backend (JSON Server) com fallback para múltiplas opções
+      const API_BASES = [
+        (import.meta as any).env?.VITE_BACKEND_BASE || 'http://localhost:3001',
+        'http://backend:3001',
+        'http://localhost:3001'
+      ]
+      let loaded = false
+      for (const base of API_BASES) {
+        try {
+          const res = await fetch(`${base}/institutions`)
+          if (res.ok) {
+            const data = await res.json()
+            institutions.value = data?.institutions ?? data
+            loaded = true
+            break
+          }
+        } catch {
+          // tenta próximo
+        }
+      }
+      if (!loaded) {
+        institutions.value = mockInstitutions
+      }
     } catch (err) {
       error.value = 'Erro ao carregar instituições'
       console.error('Erro ao buscar instituições:', err)
