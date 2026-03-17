@@ -419,6 +419,7 @@ onMounted(() => {
 }
 
 .profile-header {
+  margin-top: 40px;
   background: linear-gradient(135deg, rgb(var(--v-theme-primary)) 0%, rgb(var(--v-theme-secondary)) 100%);
   color: white;
   padding: 24px 0;

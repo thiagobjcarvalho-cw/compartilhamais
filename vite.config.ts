@@ -21,5 +21,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    // Bind to all interfaces to allow container access (e.g., docker)
+    host: true,
   },
 })

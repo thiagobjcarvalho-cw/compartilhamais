@@ -208,11 +208,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useDonorStore } from '@/stores/donor'
+import { useUiStore } from '@/stores/ui'
 import type { Donation, DonationStatus } from '@/types/interfaces'
 import { DonationStatus as DonationStatusEnum } from '@/types/interfaces'
 import { mockDonations, mockInstitutions } from '@/mock/data'
 
 const donorStore = useDonorStore()
+const uiStore = useUiStore()
 
 // Tipos específicos para filtros
 type PeriodFilter = 'week' | 'month' | 'quarter' | 'year'
@@ -362,13 +364,51 @@ const formatDate = (dateString: string): string => {
 
 // Métodos com tipagem forte
 const viewDonationDetails = (donation: Donation): void => {
-  showMessage(`Visualizando doação: ${donation.description}`, 'info')
-  // TODO: Implementar modal de detalhes ou navegação
+  uiStore.showInfo(`Doação: ${donation.description} - Status: ${getStatusLabel(donation.status)}`)
 }
 
 const exportHistory = (): void => {
-  showMessage(`Exportando ${filteredDonations.value.length} doações...`, 'info')
-  // TODO: Implementar exportação CSV/PDF
+  if (filteredDonations.value.length === 0) {
+    uiStore.showWarning('Nenhuma doação para exportar')
+    return
+  }
+
+  try {
+    // Criar cabeçalho CSV
+    const headers = ['ID', 'Descrição', 'Instituição', 'Quantidade', 'Status', 'Data']
+
+    // Criar linhas de dados
+    const rows = filteredDonations.value.map((donation) => [
+      donation.id,
+      `"${donation.description.replace(/"/g, '""')}"`, // Escape aspas duplas
+      `"${getInstitutionName(donation.institutionId)}"`,
+      donation.quantity || 'N/A',
+      getStatusLabel(donation.status),
+      formatDate(donation.createdAt),
+    ])
+
+    // Montar CSV
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((row) => row.join(',')),
+    ].join('\n')
+
+    // Criar blob e download
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.setAttribute('href', url)
+    link.setAttribute('download', `doacoes_${new Date().toISOString().split('T')[0]}.csv`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+
+    uiStore.showSuccess(`${filteredDonations.value.length} doações exportadas com sucesso!`)
+  } catch (error) {
+    console.error('Erro ao exportar:', error)
+    uiStore.showError('Erro ao exportar doações. Tente novamente.')
+  }
 }
 
 const showMessage = (message: string, color: string = 'info'): void => {

@@ -100,7 +100,7 @@
       <v-col cols="12" sm="6" md="3">
         <v-card elevation="0" border rounded="lg" class="text-center pa-4">
           <v-icon icon="mdi-alert-circle" size="32" color="error" class="mb-2" />
-          <div class="text-h5 font-weight-bold">{{ urgentNotifications.length }}</div>
+          <div class="text-h5 font-weight-bold">{{ urgentNotifications?.length || 0 }}</div>
           <div class="text-caption text-medium-emphasis">Urgentes</div>
         </v-card>
       </v-col>
@@ -114,7 +114,7 @@
       <v-col cols="12" sm="6" md="3">
         <v-card elevation="0" border rounded="lg" class="text-center pa-4">
           <v-icon icon="mdi-bell" size="32" color="grey" class="mb-2" />
-          <div class="text-h5 font-weight-bold">{{ notifications.length }}</div>
+          <div class="text-h5 font-weight-bold">{{ notifications?.value?.length || 0 }}</div>
           <div class="text-caption text-medium-emphasis">Total</div>
         </v-card>
       </v-col>
@@ -129,7 +129,7 @@
     </v-row>
 
     <!-- Empty State -->
-    <v-row v-else-if="!filteredNotifications.length">
+    <v-row v-else-if="!filteredNotifications?.length">
       <v-col cols="12">
         <v-card elevation="0" border rounded="lg" class="text-center py-12">
           <v-icon
@@ -296,6 +296,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useNotificationsStore } from '@/stores/notifications'
 import type { NotificationType, NotificationPriority, Notification } from '@/types/auth'
 
@@ -310,7 +311,7 @@ const snackbar = ref({
   color: 'success'
 })
 
-// Store data
+// Store data - usar storeToRefs pra manter reatividade
 const {
   notifications,
   isLoading,
@@ -321,11 +322,11 @@ const {
   urgentNotifications,
   filteredNotifications,
   groupedNotifications
-} = notificationsStore
+} = storeToRefs(notificationsStore)
 
 // Computed
 const donationCount = computed(() => {
-  return notifications.value.filter(n => n.type === 'donation').length
+  return notifications.value?.filter(n => n.type === 'donation').length || 0
 })
 
 // Filter options
