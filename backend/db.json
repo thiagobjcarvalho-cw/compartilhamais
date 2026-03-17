@@ -1,20 +1,173 @@
 {
   "institutions": [
-    {"id":"1","name":"Casa da Esperança","type":"shelter","description":"Abrigo","location":{"city":"São Paulo","state":"SP","latitude":-23.55,"longitude":-46.63,"distance":0.5},"verified":true,"rating":4.5,"totalDonations":100,"images":["https://images.unsplash.com/photo-1"],"needs":[],"createdAt":"2020-01-01T00:00:00Z","updatedAt":"2024-05-01T00:00:00Z"},
-    {"id":"2","name":"Centro Educacional Luz","type":"education","description":"Educação","location":{"city":"São Paulo","state":"SP","latitude":-23.56,"longitude":-46.65,"distance":1.2},"verified":true,"rating":4.4,"totalDonations":120,"images":["https://images.unsplash.com/photo-2"],"needs":[],"createdAt":"2020-01-02T00:00:00Z","updatedAt":"2024-05-02T00:00:00Z"},
-    {"id":"3","name":"Lar dos Idosos São Francisco","type":"elderly","description":"Lar","location":{"city":"São Paulo","state":"SP","latitude":-23.54,"longitude":-46.63,"distance":2.0},"verified":true,"rating":4.6,"totalDonations":200,"images":["https://images.unsplash.com/photo-3"],"needs":[],"createdAt":"2020-01-03T00:00:00Z","updatedAt":"2024-05-03T00:00:00Z"},
-    {"id":"4","name":"Hospital Infantil Arco-Íris","type":"health","description":"Hospital","location":{"city":"São Paulo","state":"SP","latitude":-23.57,"longitude":-46.64,"distance":3.0},"verified":true,"rating":4.9,"totalDonations":300,"images":["https://images.unsplash.com/photo-4"],"needs":[],"createdAt":"2020-01-04T00:00:00Z","updatedAt":"2024-05-04T00:00:00Z"},
-    {"id":"5","name":"Projeto Crescer","type":"education","description":"Projeto Crescer","location":{"city":"São Paulo","state":"SP","latitude":-23.55,"longitude":-46.66,"distance":1.8},"verified":true,"rating":4.7,"totalDonations":180,"images":["https://images.unsplash.com/photo-5"],"needs":[],"createdAt":"2020-01-05T00:00:00Z","updatedAt":"2024-05-05T00:00:00Z"},
-    {"id":"6","name":"Abrigo Animal Patinhas","type":"animal","description":"Abrigo","location":{"city":"São Paulo","state":"SP","latitude":-23.56,"longitude":-46.67,"distance":4.2},"verified":true,"rating":4.8,"totalDonations":220,"images":["https://images.unsplash.com/photo-6"],"needs":[],"createdAt":"2020-01-06T00:00:00Z","updatedAt":"2024-05-06T00:00:00Z"},
-    {"id":"7","name":"Cozinha Solidária","type":"food","description":"Refeições","location":{"city":"São Paulo","state":"SP","latitude":-23.54,"longitude":-46.63,"distance":0.5},"verified":true,"rating":4.8,"totalDonations":500,"images":["https://images.unsplash.com/photo-7"],"needs":[],"createdAt":"2020-01-07T00:00:00Z","updatedAt":"2024-05-07T00:00:00Z"},
-    {"id":"8","name":"Biblioteca Saber","type":"education","description":"Biblioteca","location":{"city":"São Paulo","state":"SP","latitude":-23.56,"longitude":-46.65,"distance":2.1},"verified":true,"rating":4.5,"totalDonations":250,"images":["https://images.unsplash.com/photo-8"],"needs":[],"createdAt":"2020-01-08T00:00:00Z","updatedAt":"2024-05-08T00:00:00Z"}
+    {
+      "id": "1",
+      "name": "Casa da Esperança",
+      "type": "shelter",
+      "description": "Abrigo para pessoas em situação de rua",
+      "about": "Fundada em 1998, a Casa da Esperança já acolheu mais de 2.000 famílias, oferecendo moradia temporária, alimentação, apoio psicossocial e orientação para reinserção social.",
+      "location": {"address": "Rua da Solidariedade, 123", "city": "São Paulo", "state": "SP", "zipCode": "01234-567", "latitude": -23.55, "longitude": -46.63, "distance": 0.5},
+      "contact": {"phone": "(11) 3456-7890", "email": "contato@casadaesperanca.org.br", "whatsapp": "11999999999", "website": "www.casadaesperanca.org.br"},
+      "verified": true,
+      "rating": 4.5,
+      "totalDonations": 100,
+      "images": ["https://images.unsplash.com/photo-1488521787991-ed7bbaae773c"],
+      "needs": [
+        {"id": "need-1-1", "title": "Cob blankets", "description": "Cobertores novos para o inverno", "quantity": 50, "urgency": "HIGH", "category": "clothing", "fulfilled": false},
+        {"id": "need-1-2", "title": "Alimentos não perecíveis", "description": "Arroz, feijão, macarrão", "quantity": 100, "urgency": "MEDIUM", "category": "food", "fulfilled": false},
+        {"id": "need-1-3", "title": "Kit higiene pessoal", "description": "Sabonete, shampoo, escova de dentes", "quantity": 30, "urgency": "MEDIUM", "category": "hygiene", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-01T00:00:00Z",
+      "updatedAt": "2024-05-01T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Centro Educacional Luz",
+      "type": "education",
+      "description": "Educação para crianças de baixa renda",
+      "about": "O Centro Educacional Luz atende 200 crianças de 6 a 14 anos em contraturno escolar. Oferecemos reforço em matemática, português, inglês e informática.",
+      "location": {"address": "Av. da Educação, 456", "city": "São Paulo", "state": "SP", "zipCode": "01234-890", "latitude": -23.56, "longitude": -46.65, "distance": 1.2},
+      "contact": {"phone": "(11) 2345-6789", "email": "contato@centroluz.org.br", "whatsapp": "11988777777"},
+      "verified": true,
+      "rating": 4.4,
+      "totalDonations": 120,
+      "images": ["https://images.unsplash.com/photo-1503676260728-1c00da094a0b"],
+      "needs": [
+        {"id": "need-2-1", "title": "Cadernos e canetas", "description": "Material escolar para 50 crianças", "quantity": 50, "urgency": "HIGH", "category": "education", "fulfilled": false},
+        {"id": "need-2-2", "title": "Mochilas", "description": "Mochilas para alunos", "quantity": 25, "urgency": "MEDIUM", "category": "education", "fulfilled": false},
+        {"id": "need-2-3", "title": "Lápis de cor", "description": "Kit artístico para sala de aula", "quantity": 10, "urgency": "LOW", "category": "education", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-02T00:00:00Z",
+      "updatedAt": "2024-05-02T00:00:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Lar dos Idosos São Francisco",
+      "type": "elderly",
+      "description": "Casa de repouso para idosos",
+      "about": "Casa de repouso que oferece cuidados especializados para idosos, com equipe multidisciplinar e ambiente acolhedor.",
+      "location": {"address": "Rua dos Idosos, 789", "city": "São Paulo", "state": "SP", "zipCode": "01234-123", "latitude": -23.54, "longitude": -46.63, "distance": 2.0},
+      "contact": {"phone": "(11) 3456-1234", "email": "contato@saofrancisco.org.br", "whatsapp": "11999991234"},
+      "verified": true,
+      "rating": 4.6,
+      "totalDonations": 200,
+      "images": ["https://images.unsplash.com/photo-1516307365426-bea591f05011"],
+      "needs": [
+        {"id": "need-3-1", "title": "Fraldas geriátricas", "description": "Fraldas para idosos", "quantity": 200, "urgency": "CRITICAL", "category": "health", "fulfilled": false},
+        {"id": "need-3-2", "title": "Medicamentos", "description": "Remédios de uso contínuo", "quantity": 50, "urgency": "CRITICAL", "category": "health", "fulfilled": false},
+        {"id": "need-3-3", "title": "Roupas de cama", "description": "Lençóis e fronhas", "quantity": 30, "urgency": "MEDIUM", "category": "clothing", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-03T00:00:00Z",
+      "updatedAt": "2024-05-03T00:00:00Z"
+    },
+    {
+      "id": "4",
+      "name": "Hospital Infantil Arco-Íris",
+      "type": "health",
+      "description": "Hospital pediátrico",
+      "about": "Hospital infantil referência em pediatria, oferecendo atendimento de qualidade para crianças de toda a região.",
+      "location": {"address": "Av. Hospitalar, 1000", "city": "São Paulo", "state": "SP", "zipCode": "01234-456", "latitude": -23.57, "longitude": -46.64, "distance": 3.0},
+      "contact": {"phone": "(11) 4567-8901", "email": "contato@hospitalarcoinris.org.br", "whatsapp": "11999999001"},
+      "verified": true,
+      "rating": 4.9,
+      "totalDonations": 300,
+      "images": ["https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d"],
+      "needs": [
+        {"id": "need-4-1", "title": "Brinquedos", "description": "Brinquedos para crianças internadas", "quantity": 100, "urgency": "HIGH", "category": "toys", "fulfilled": false},
+        {"id": "need-4-2", "title": "Kits higiene", "description": "Kit higiene para alta hospitalar", "quantity": 50, "urgency": "MEDIUM", "category": "hygiene", "fulfilled": false},
+        {"id": "need-4-3", "title": "Soro fisiológico", "description": "Soro para tratamentos", "quantity": 200, "urgency": "CRITICAL", "category": "health", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-04T00:00:00Z",
+      "updatedAt": "2024-05-04T00:00:00Z"
+    },
+    {
+      "id": "5",
+      "name": "Projeto Crescer",
+      "type": "education",
+      "description": "Projeto social para jovens",
+      "about": "Projeto social que oferece cursos profissionalizantes e acompanhamento para jovens em situação de vulnerabilidade.",
+      "location": {"address": "Rua do Crescimento, 200", "city": "São Paulo", "state": "SP", "zipCode": "01234-789", "latitude": -23.55, "longitude": -46.66, "distance": 1.8},
+      "contact": {"phone": "(11) 5678-9012", "email": "contato@projetocrescer.org.br", "whatsapp": "11999998002"},
+      "verified": true,
+      "rating": 4.7,
+      "totalDonations": 180,
+      "images": ["https://images.unsplash.com/photo-1529156069898-49953e39b3ac"],
+      "needs": [
+        {"id": "need-5-1", "title": "Computadores", "description": "Computadores para curso de informática", "quantity": 10, "urgency": "HIGH", "category": "education", "fulfilled": false},
+        {"id": "need-5-2", "title": "Livros técnicos", "description": "Livros para biblioteca", "quantity": 50, "urgency": "MEDIUM", "category": "education", "fulfilled": false},
+        {"id": "need-5-3", "title": "Fones de ouvido", "description": "Para aulas online", "quantity": 20, "urgency": "LOW", "category": "education", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-05T00:00:00Z",
+      "updatedAt": "2024-05-05T00:00:00Z"
+    },
+    {
+      "id": "6",
+      "name": "Abrigo Animal Patinhas",
+      "type": "animal",
+      "description": "Abrigo para animais abandonados",
+      "about": "Abrigo responsável por resgate, tratamento e adoção de animais abandonados na região.",
+      "location": {"address": "Av. dos Animais, 300", "city": "São Paulo", "state": "SP", "zipCode": "01234-567", "latitude": -23.56, "longitude": -46.67, "distance": 4.2},
+      "contact": {"phone": "(11) 6789-0123", "email": "contato@patinhas.org.br", "whatsapp": "11999997003"},
+      "verified": true,
+      "rating": 4.8,
+      "totalDonations": 220,
+      "images": ["https://images.unsplash.com/photo-1601758228041-f3b2795255f1"],
+      "needs": [
+        {"id": "need-6-1", "title": "Ração para cães", "description": "Ração seca para cães", "quantity": 200, "urgency": "CRITICAL", "category": "animal", "fulfilled": false},
+        {"id": "need-6-2", "title": "Ração para gatos", "description": "Ração seca para gatos", "quantity": 100, "urgency": "CRITICAL", "category": "animal", "fulfilled": false},
+        {"id": "need-6-3", "title": "Coleiras e guias", "description": "Para passeios", "quantity": 30, "urgency": "MEDIUM", "category": "animal", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-06T00:00:00Z",
+      "updatedAt": "2024-05-06T00:00:00Z"
+    },
+    {
+      "id": "7",
+      "name": "Cozinha Solidária",
+      "type": "food",
+      "description": "Refeições para população de rua",
+      "about": "Cozinha comunitária que prepara e distribui refeições para população de rua diariamente.",
+      "location": {"address": "Praça da Solidariedade, 50", "city": "São Paulo", "state": "SP", "zipCode": "01234-890", "latitude": -23.54, "longitude": -46.63, "distance": 0.5},
+      "contact": {"phone": "(11) 7890-1234", "email": "contato@cozinhasolidaria.org.br", "whatsapp": "11999996004"},
+      "verified": true,
+      "rating": 4.8,
+      "totalDonations": 500,
+      "images": ["https://images.unsplash.com/photo-1542838132-92c53300491e"],
+      "needs": [
+        {"id": "need-7-1", "title": "Arroz", "description": "Arroz branco", "quantity": 100, "urgency": "CRITICAL", "category": "food", "fulfilled": false},
+        {"id": "need-7-2", "title": "Feijão", "description": "Feijão carioca", "quantity": 80, "urgency": "CRITICAL", "category": "food", "fulfilled": false},
+        {"id": "need-7-3", "title": "Óleo de soja", "description": "Para cozinhar", "quantity": 30, "urgency": "HIGH", "category": "food", "fulfilled": false},
+        {"id": "need-7-4", "title": "Sal e temperos", "description": "Condimentos básicos", "quantity": 20, "urgency": "MEDIUM", "category": "food", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-07T00:00:00Z",
+      "updatedAt": "2024-05-07T00:00:00Z"
+    },
+    {
+      "id": "8",
+      "name": "Biblioteca Saber",
+      "type": "education",
+      "description": "Biblioteca pública comunitária",
+      "about": "Biblioteca comunitária que promove inclusão através da leitura e acesso à informação para todos.",
+      "location": {"address": "Rua dos Livros, 400", "city": "São Paulo", "state": "SP", "zipCode": "01234-234", "latitude": -23.56, "longitude": -46.65, "distance": 2.1},
+      "contact": {"phone": "(11) 8901-2345", "email": "contato@bibliotecasaber.org.br"},
+      "verified": true,
+      "rating": 4.5,
+      "totalDonations": 250,
+      "images": ["https://images.unsplash.com/photo-1481627834876-b7833e8f5570"],
+      "needs": [
+        {"id": "need-8-1", "title": "Livros infantis", "description": "Contos e histórias", "quantity": 100, "urgency": "HIGH", "category": "education", "fulfilled": false},
+        {"id": "need-8-2", "title": "Móveis", "description": "Estantes e cadeiras", "quantity": 15, "urgency": "MEDIUM", "category": "infrastructure", "fulfilled": false},
+        {"id": "need-8-3", "title": "Ar-condicionado", "description": "Para conforto dos leitores", "quantity": 2, "urgency": "LOW", "category": "infrastructure", "fulfilled": false}
+      ],
+      "createdAt": "2020-01-08T00:00:00Z",
+      "updatedAt": "2024-05-08T00:00:00Z"
+    }
   ],
   "donations": [
-    {"id":"donation-1","donorId":"donor-1","institutionId":"1","needId":"need-1","description":"10kg arroz","quantity":"10kg","scheduledDate":"2024-05-25T10:00:00Z","status":"completed","photos":[],"feedback":"Obrigado!","createdAt":"2024-05-20T10:00:00Z","completedAt":"2024-05-25T10:30:00Z"},
-    {"id":"donation-2","donorId":"donor-2","institutionId":"2","needId":"need-3","description":"Caderno e material escolar","quantity":"Para 50 crianças","scheduledDate":null,"status":"pending","photos":[],"createdAt":"2024-05-21T10:00:00Z"}
+    {"id": "donation-1", "donorId": "donor-1", "institutionId": "1", "needId": "need-1-1", "description": "10kg arroz", "quantity": "10kg", "scheduledDate": "2024-05-25T10:00:00Z", "status": "completed", "photos": [], "feedback": "Obrigado!", "createdAt": "2024-05-20T10:00:00Z", "completedAt": "2024-05-25T10:30:00Z"},
+    {"id": "donation-2", "donorId": "donor-2", "institutionId": "2", "needId": "need-2-1", "description": "Caderno e material escolar", "quantity": "Para 50 crianças", "scheduledDate": null, "status": "pending", "photos": [], "createdAt": "2024-05-21T10:00:00Z"}
   ],
   "donors": [
-    {"id":"donor-1","name":"João Silva","email":"joao@example.com","phone":"(11) 99999-0001","avatar":"","location":{"city":"São Paulo","state":"SP","latitude":-23.55,"longitude":-46.63},"stats":{"totalDonations":1,"institutionsHelped":1,"impactMetrics":[{"label":"Refeições fornecidas","value":20,"unit":"refeições","icon":"mdi-food"}]},"preferences":{"categories":["food","education"],"maxDistance":5,"notifications":{"newInstitutions":true,"urgentNeeds":true,"donationUpdates":true,"weeklyReport":false}},"createdAt":"2024-01-01T00:00:00Z"},
-    {"id":"donor-2","name":"Maria Santos","email":"maria@example.com","phone":"(11) 8888-8888","avatar":"","location":{"city":"São Paulo","state":"SP","latitude":-23.56,"longitude":-46.65},"stats":{"totalDonations":2,"institutionsHelped":2,"impactMetrics":[]},"preferences":{"categories":["education"],"maxDistance":5,"notifications":{"newInstitutions":true,"urgentNeeds":true,"donationUpdates":true,"weeklyReport":false}},"createdAt":"2024-02-02T00:00:00Z"}
+    {"id": "donor-1", "name": "João Silva", "email": "joao@example.com", "phone": "(11) 99999-0001", "avatar": "", "location": {"city": "São Paulo", "state": "SP", "latitude": -23.55, "longitude": -46.63}, "stats": {"totalDonations": 1, "institutionsHelped": 1, "impactMetrics": [{"label": "Refeições fornecidas", "value": 20, "unit": "refeições", "icon": "mdi-food"}]}, "preferences": {"categories": ["food", "education"], "maxDistance": 5, "notifications": {"newInstitutions": true, "urgentNeeds": true, "donationUpdates": true, "weeklyReport": false}}, "createdAt": "2024-01-01T00:00:00Z"},
+    {"id": "donor-2", "name": "Maria Santos", "email": "maria@example.com", "phone": "(11) 8888-8888", "avatar": "", "location": {"city": "São Paulo", "state": "SP", "latitude": -23.56, "longitude": -46.65}, "stats": {"totalDonations": 2, "institutionsHelped": 2, "impactMetrics": []}, "preferences": {"categories": ["education"], "maxDistance": 5, "notifications": {"newInstitutions": true, "urgentNeeds": true, "donationUpdates": true, "weeklyReport": false}}, "createdAt": "2024-02-02T00:00:00Z"}
   ]
 }

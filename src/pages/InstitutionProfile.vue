@@ -227,9 +227,9 @@
           <!-- Tab: Contato -->
           <v-tabs-window-item value="contact">
             <div class="contact-section">
-              <v-row>
+              <v-row class="contact-cards-row">
                 <v-col cols="12" md="6">
-                  <v-card>
+                  <v-card class="contact-card">
                     <v-card-text>
                       <h3 class="mb-4">📞 Informações de Contato</h3>
                       
@@ -295,7 +295,7 @@
                 </v-col>
                 
                 <v-col cols="12" md="6">
-                  <v-card>
+                  <v-card class="location-card">
                     <v-card-text>
                       <h3 class="mb-4">📍 Localização</h3>
                       
@@ -320,16 +320,26 @@
                         </v-btn>
                       </div>
                       
-                      <!-- Mini mapa pode ser adicionado aqui -->
+                      <!-- Mini mapa com localização da instituição -->
                       <div class="mini-map mt-4">
+                        <div v-if="!institution" class="d-flex align-center justify-center" style="height: 250px">
+                          <v-progress-circular indeterminate color="primary" />
+                        </div>
+                        <MapView
+                          v-else-if="institution.location?.latitude && institution.location?.longitude"
+                          :institutions="[institution]"
+                          :loading="false"
+                          @institution-selected="handleInstitutionSelect"
+                        />
                         <v-card
+                          v-else
                           height="200"
                           color="grey-lighten-3"
                           class="d-flex align-center justify-center"
                         >
                           <div class="text-center">
-                            <v-icon size="48" color="grey">mdi-map</v-icon>
-                            <p class="mt-2 text-grey">Mapa em breve</p>
+                            <v-icon size="48" color="grey">mdi-map-marker-off</v-icon>
+                            <p class="mt-2 text-grey">Localização não disponível</p>
                           </div>
                         </v-card>
                       </div>
@@ -489,6 +499,7 @@ import {
 } from '../mock/data'
 import NeedCard from '../components/institution/NeedCard.vue'
 import DonationDialog from '../components/institution/DonationDialog.vue'
+import MapView from '../components/map/MapView.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -628,6 +639,10 @@ const openDonationDialog = (need: Need) => {
 const openGeneralDonationDialog = () => {
   selectedNeed.value = null
   donationDialog.value = true
+}
+
+const handleInstitutionSelect = (inst: Institution) => {
+  router.push(`/institution/${inst.id}`)
 }
 
 const onDonationConfirm = (donationData: any) => {
@@ -777,6 +792,23 @@ onMounted(async () => {
 }
 
 .contact-section {
+  .contact-cards-row {
+    align-items: stretch;
+  }
+  
+  .contact-card,
+  .location-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    :deep(.v-card-text) {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
   .contact-methods {
     .contact-item {
       margin-bottom: 12px;
@@ -792,6 +824,8 @@ onMounted(async () => {
   .mini-map {
     border-radius: 12px;
     overflow: hidden;
+    flex: 1;
+    min-height: 250px;
   }
 }
 
