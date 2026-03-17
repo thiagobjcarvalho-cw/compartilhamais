@@ -5,8 +5,10 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" color="primary" />
 
       <v-toolbar-title class="d-flex align-center">
-        <v-icon class="mr-2" color="primary" size="32">mdi-hand-heart</v-icon>
-        <span class="app-title">CompartilhaMais</span>
+        <router-link to="/" class="logo-link d-flex align-center text-decoration-none">
+          <v-icon class="mr-2" color="primary" size="32">mdi-hand-heart</v-icon>
+          <span class="app-title">CompartilhaMais</span>
+        </router-link>
       </v-toolbar-title>
 
       <v-spacer />
@@ -313,6 +315,14 @@ onMounted(async () => {
 .app-header {
   background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.logo-link {
+  color: inherit;
+  
+  &:hover {
+    opacity: 0.85;
+  }
 }
 
 .app-title {

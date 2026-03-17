@@ -154,14 +154,36 @@ export const useInstitutionsStore = defineStore('institutions', () => {
     error.value = null
 
     try {
-      // Simula API call
-      await new Promise((resolve) => setTimeout(resolve, 300))
-      const institution = mockInstitutions.find((inst) => inst.id === id)
-
+      const API_BASES = [
+        (import.meta as any).env?.VITE_BACKEND_BASE || 'http://localhost:3001',
+        'http://backend:3001',
+        'http://localhost:3001'
+      ]
+      
+      let institution: Institution | null = null
+      
+      for (const base of API_BASES) {
+        try {
+          const res = await fetch(`${base}/institutions/${id}`)
+          if (res.ok) {
+            institution = await res.json()
+            break
+          }
+        } catch {
+          // tenta próximo
+        }
+      }
+      
       if (institution) {
         selectedInstitution.value = institution
         return institution
       } else {
+        // Fallback para mock
+        const mockInstitution = mockInstitutions.find((inst) => inst.id === id)
+        if (mockInstitution) {
+          selectedInstitution.value = mockInstitution
+          return mockInstitution
+        }
         error.value = 'Instituição não encontrada'
         return null
       }

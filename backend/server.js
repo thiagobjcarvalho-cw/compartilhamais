@@ -61,6 +61,42 @@ app.get('/institutions/:id/needs', (req, res) => {
   res.status(404).json({ error: 'Instituição não encontrada' })
 })
 
+// Get all needs from all institutions
+app.get('/needs', (req, res) => {
+  const allNeeds = []
+  ;(data.institutions ?? []).forEach((inst) => {
+    if (inst.needs && Array.isArray(inst.needs)) {
+      inst.needs.forEach((need) => {
+        allNeeds.push({
+          ...need,
+          institutionId: inst.id,
+          institutionName: inst.name,
+        })
+      })
+    }
+  })
+  res.json(allNeeds)
+})
+
+// Get urgent needs only
+app.get('/needs/urgent', (req, res) => {
+  const urgentNeeds = []
+  ;(data.institutions ?? []).forEach((inst) => {
+    if (inst.needs && Array.isArray(inst.needs)) {
+      inst.needs
+        .filter((need) => need.urgency === 'CRITICAL' || need.urgency === 'HIGH')
+        .forEach((need) => {
+          urgentNeeds.push({
+            ...need,
+            institutionId: inst.id,
+            institutionName: inst.name,
+          })
+        })
+    }
+  })
+  res.json(urgentNeeds)
+})
+
 // Get donation by id (optional, use for completeness)
 app.get('/donations/:id', (req, res) => {
   const id = req.params.id
