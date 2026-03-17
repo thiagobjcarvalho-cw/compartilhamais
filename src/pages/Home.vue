@@ -370,7 +370,7 @@ const filters = ref<InstitutionFilters>({
   needCategory: null,
   urgency: null,
   maxDistance: 5,
-  verified: false,
+  verified: undefined,
 })
 
 // Computed
