@@ -9,6 +9,12 @@
     {"id":"7","name":"Cozinha Solidária","type":"food","description":"Refeições","location":{"city":"São Paulo","state":"SP","latitude":-23.54,"longitude":-46.63,"distance":0.5},"verified":true,"rating":4.8,"totalDonations":500,"images":["https://images.unsplash.com/photo-7"],"needs":[],"createdAt":"2020-01-07T00:00:00Z","updatedAt":"2024-05-07T00:00:00Z"},
     {"id":"8","name":"Biblioteca Saber","type":"education","description":"Biblioteca","location":{"city":"São Paulo","state":"SP","latitude":-23.56,"longitude":-46.65,"distance":2.1},"verified":true,"rating":4.5,"totalDonations":250,"images":["https://images.unsplash.com/photo-8"],"needs":[],"createdAt":"2020-01-08T00:00:00Z","updatedAt":"2024-05-08T00:00:00Z"}
   ],
-  "donations": [],
-  "donors": []
+  "donations": [
+    {"id":"donation-1","donorId":"donor-1","institutionId":"1","needId":"need-1","description":"10kg arroz","quantity":"10kg","scheduledDate":"2024-05-25T10:00:00Z","status":"completed","photos":[],"feedback":"Obrigado!","createdAt":"2024-05-20T10:00:00Z","completedAt":"2024-05-25T10:30:00Z"},
+    {"id":"donation-2","donorId":"donor-2","institutionId":"2","needId":"need-3","description":"Caderno e material escolar","quantity":"Para 50 crianças","scheduledDate":null,"status":"pending","photos":[],"createdAt":"2024-05-21T10:00:00Z"}
+  ],
+  "donors": [
+    {"id":"donor-1","name":"João Silva","email":"joao@example.com","phone":"(11) 99999-0001","avatar":"","location":{"city":"São Paulo","state":"SP","latitude":-23.55,"longitude":-46.63},"stats":{"totalDonations":1,"institutionsHelped":1,"impactMetrics":[{"label":"Refeições fornecidas","value":20,"unit":"refeições","icon":"mdi-food"}]},"preferences":{"categories":["food","education"],"maxDistance":5,"notifications":{"newInstitutions":true,"urgentNeeds":true,"donationUpdates":true,"weeklyReport":false}},"createdAt":"2024-01-01T00:00:00Z"},
+    {"id":"donor-2","name":"Maria Santos","email":"maria@example.com","phone":"(11) 8888-8888","avatar":"","location":{"city":"São Paulo","state":"SP","latitude":-23.56,"longitude":-46.65},"stats":{"totalDonations":2,"institutionsHelped":2,"impactMetrics":[]},"preferences":{"categories":["education"],"maxDistance":5,"notifications":{"newInstitutions":true,"urgentNeeds":true,"donationUpdates":true,"weeklyReport":false}},"createdAt":"2024-02-02T00:00:00Z"}
+  ]
 }

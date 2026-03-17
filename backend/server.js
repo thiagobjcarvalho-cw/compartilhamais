@@ -5,6 +5,18 @@ const path = require('path')
 const app = express()
 app.use(express.json())
 
+// Minimal CORS middleware for frontend access when running in containers
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  if (req.method === 'OPTIONS') {
+    res.status(204).end()
+  } else {
+    next()
+  }
+})
+
 const dataPath = path.join(__dirname, 'db.json')
 let data = {}
 try {
@@ -28,11 +40,24 @@ app.get('/donors', (req, res) => {
   res.json(data.donors ?? [])
 })
 
+// Health check endpoint (CORS already configured globally)
+app.get('/healthz', (req, res) => {
+  res.json({ ok: true, status: 'UP' })
+})
+
 // Get institution by id
 app.get('/institutions/:id', (req, res) => {
   const id = req.params.id
   const inst = (data.institutions ?? []).find((i) => i.id === id)
   if (inst) return res.json(inst)
+  res.status(404).json({ error: 'Instituição não encontrada' })
+})
+
+// Get needs for an institution by id
+app.get('/institutions/:id/needs', (req, res) => {
+  const id = req.params.id
+  const inst = (data.institutions ?? []).find((i) => i.id === id)
+  if (inst) return res.json(inst.needs ?? [])
   res.status(404).json({ error: 'Instituição não encontrada' })
 })
 
@@ -45,6 +70,11 @@ app.get('/donations/:id', (req, res) => {
 })
 
 const port = process.env.PORT || 3001
-app.listen(port, () => {
-  console.log(`Backend mock listening on port ${port}`)
-})
+ 
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Backend mock listening on port ${port}`)
+  })
+}
+module.exports = app
