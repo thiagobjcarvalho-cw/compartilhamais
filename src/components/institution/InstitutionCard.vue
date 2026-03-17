@@ -156,6 +156,16 @@
       <v-spacer />
 
       <v-btn
+        icon
+        variant="text"
+        size="small"
+        :color="isFavorited ? 'warning' : 'grey'"
+        @click.stop="handleFavorite"
+      >
+        <v-icon>{{ isFavorited ? 'mdi-star' : 'mdi-star-outline' }}</v-icon>
+      </v-btn>
+
+      <v-btn
         color="primary"
         variant="elevated"
         size="small"
@@ -173,6 +183,9 @@
 import { ref, computed } from 'vue'
 import type { Institution } from '@/types/interfaces'
 import { InstitutionType, NeedCategory, UrgencyLevel } from '@/types/interfaces'
+import { useFavoritesStore } from '@/stores/favorites'
+
+const favoritesStore = useFavoritesStore()
 
 // Props
 interface Props {
@@ -189,6 +202,7 @@ const emit = defineEmits<{
   click: []
   donate: []
   viewDetails: []
+  favorite: []
 }>()
 
 // Estado local
@@ -212,6 +226,10 @@ const hasUrgentNeeds = computed(() => {
   return activeNeeds.value.some(
     (need) => need.urgency === UrgencyLevel.CRITICAL || need.urgency === UrgencyLevel.HIGH,
   )
+})
+
+const isFavorited = computed(() => {
+  return favoritesStore.isFavorite(props.institution.id)
 })
 
 const institutionImage = computed(() => {
@@ -312,6 +330,10 @@ const handleViewDetails = () => {
 
 const handleDonate = () => {
   emit('donate')
+}
+
+const handleFavorite = () => {
+  emit('favorite')
 }
 </script>
 

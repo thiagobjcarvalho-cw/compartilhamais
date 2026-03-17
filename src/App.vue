@@ -150,6 +150,37 @@
         </div>
       </v-container>
     </v-footer>
+
+    <!-- Global Snackbar -->
+    <v-snackbar
+      v-model="uiStore.snackbar.show"
+      :color="uiStore.snackbar.color"
+      :timeout="uiStore.snackbar.timeout"
+      location="bottom"
+      rounded="lg"
+    >
+      <div class="d-flex align-center">
+        <v-icon v-if="uiStore.snackbar.icon" class="mr-2">{{ uiStore.snackbar.icon }}</v-icon>
+        {{ uiStore.snackbar.message }}
+      </div>
+      <template #actions>
+        <v-btn variant="text" @click="uiStore.hideSnackbar()">Fechar</v-btn>
+      </template>
+    </v-snackbar>
+
+    <!-- Global Loading Overlay -->
+    <v-overlay
+      v-model="uiStore.globalLoading"
+      class="align-center justify-center"
+      persistent
+    >
+      <div class="text-center">
+        <v-progress-circular indeterminate size="64" color="primary" />
+        <p v-if="uiStore.loadingMessage" class="text-body-1 mt-4">
+          {{ uiStore.loadingMessage }}
+        </p>
+      </div>
+    </v-overlay>
   </v-app>
 </template>
 
@@ -158,10 +189,14 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useNotificationsStore } from '@/stores/notifications'
+import { useFavoritesStore } from '@/stores/favorites'
+import { useUiStore } from '@/stores/ui'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const notificationsStore = useNotificationsStore()
+const favoritesStore = useFavoritesStore()
+const uiStore = useUiStore()
 
 const drawer = ref(false)
 
@@ -260,9 +295,12 @@ const goToProfile = () => {
 
 // Lifecycle
 onMounted(async () => {
+  // Inicializar favoritos do localStorage
+  favoritesStore.init()
+
   // Verificar autenticação
   await authStore.checkAuth()
-  
+
   // Carregar notificações se autenticado
   if (isAuthenticated.value) {
     await notificationsStore.loadNotifications()
